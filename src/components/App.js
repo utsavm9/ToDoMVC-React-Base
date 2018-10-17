@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BlahContainer from './Blah/containers/BlahContainer.js'
+import Blah from './Blah.js'
 
 import 'todomvc-common/base.css'
 import 'todomvc-app-css/index.css'
@@ -62,7 +62,7 @@ class App extends Component {
             <button className="clear-completed">Clear completed</button>
           </footer>
         </section>
-        <BlahContainer test="this prop did not come from redux"/>
+        <Blah/>
       </div>
     );
   }
