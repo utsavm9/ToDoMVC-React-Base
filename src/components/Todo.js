@@ -24,7 +24,7 @@ class Todo extends React.Component {
                 <div className="view">
                     {inputTag}
                     <label>{this.props.title}</label>
-                    <button className="destroy"></button>
+                    <button className="destroy" onClick={(e) => this.props.removeKeyID(this.props.keyid)}></button>
                 </div>
                 <input className="edit" defaultValue={this.props.title} />
             </li>

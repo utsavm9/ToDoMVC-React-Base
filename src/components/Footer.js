@@ -2,24 +2,34 @@ import React from 'react';
 
 class Footer extends React.Component {
     render() {
+        var clearButton = "";
+        if (this.props.numOfFinished > 0)
+            clearButton = (<button className="clear-completed" onClick={this.props.removeFunc}>Clear completed</button>);
+
+        var filters = ['All', 'Active', 'Completed']
+
         return (
             <footer className="footer">
-                {/* <!-- This should be `0 items left` by default --> */}
-                <span className="todo-count"><strong>0</strong> item left</span>
+
+                <span className="todo-count"><strong>{this.props.numOfUnfinished} </strong>
+                    item{(this.props.numOfUnfinished === 1) ? "" : "s"} left</span>
+                    
                 {/* <!-- Remove this if you don't implement routing --> */}
                 <ul className="filters">
-                    <li>
-                        <a className="selected" href="#/">All</a>
-                    </li>
-                    <li>
-                        <a href="#/active">Active</a>
-                    </li>
-                    <li>
-                        <a href="#/completed">Completed</a>
-                    </li>
+                    {
+                        filters.map((element) => {
+                            var classN = "";
+                            if (element === this.props.activeFilter)
+                                classN = "selected";
+
+                            return (
+                                <li key={element} ><a className={classN}
+                                    onClick={(e) => this.props.filterFunc(element, e)}>{element}</a></li>
+                            );
+                        })
+                    }
                 </ul>
-                {/* <!-- Hidden if no completed items are left ↓ --> */}
-                <button className="clear-completed">Clear completed</button>
+                {clearButton}
             </footer>
 
         );

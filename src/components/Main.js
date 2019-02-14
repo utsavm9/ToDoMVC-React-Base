@@ -9,9 +9,13 @@ class Main extends React.Component {
     }
 
     arrayToTodos(todoItem) {
+        if ((this.props.activeFilter === 'Completed' && !todoItem.finished) ||
+            (this.props.activeFilter === 'Active' && todoItem.finished))
+            return;
+
         return (<Todo key={todoItem.key} keyid={todoItem.key}
-            title={todoItem.title} finished={todoItem.finished} editing={todoItem.editing} 
-            modifyFunction={this.props.modifyFunction}/>);
+            title={todoItem.title} finished={todoItem.finished} editing={todoItem.editing}
+            modifyFunction={this.props.modifyFunction} removeKeyID={this.props.removeKeyID}/>);
     }
 
     render() {
