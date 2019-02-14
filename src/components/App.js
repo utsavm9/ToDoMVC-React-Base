@@ -11,22 +11,37 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            todos: []
+            lastIndex: 0,
+            todos: [],
         };
 
         this.addToDo = this.addToDo.bind(this);
+        this.modifyToDo = this.modifyToDo.bind(this);
     }
 
     addToDo(todo) {
+        if (todo == '')
+            return;
         var previousTodos = this.state.todos;
         previousTodos.push({
+            key: this.state.lastIndex,
             title: todo,
-            finsihed: false,
+            finished: false,
             editing: false
         });
         this.setState({
+            lastIndex: (this.state.lastIndex + 1),
             todos: previousTodos,
-        })
+        });
+    }
+
+    modifyToDo(keynum, event) {
+        var previousTodos = this.state.todos;
+        var changeThis = previousTodos.find(element => (element.key == keynum))
+        changeThis.finished = !changeThis.finished;
+        this.setState({
+            todos: previousTodos
+        });
     }
 
     render() {
@@ -34,8 +49,7 @@ class App extends Component {
             <div>
                 <section className="todoapp">
                     <Header saveToDo={this.addToDo} />
-                    {/* <!-- This section should be hidden by default and shown when there are todos --> */}
-                    <Main todos={this.state.todos}/>
+                    <Main todos={this.state.todos} modifyFunction={this.modifyToDo} />
                     <Footer />
                 </section>
                 <Blah />

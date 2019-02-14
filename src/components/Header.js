@@ -19,6 +19,9 @@ class Header extends Component {
 
     handleSubmit(event) {
         this.props.saveToDo(this.state.whatToDo);
+        this.setState({
+            whatToDo: ''
+        });
         event.preventDefault();
     }
 
@@ -28,7 +31,7 @@ class Header extends Component {
                 <h1>To Do, Now!</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input className="new-todo" placeholder="What needs to be done?" autoFocus
-                        onChange={this.handleChange} value={this.state.handleChange} />
+                        onChange={this.handleChange} value={this.state.whatToDo} />
                 </form>
             </header>
         );

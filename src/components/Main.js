@@ -9,7 +9,9 @@ class Main extends React.Component {
     }
 
     arrayToTodos(todoItem) {
-        return (<Todo title={todoItem.title} finished={todoItem.finished} editing={todoItem.editing} />);
+        return (<Todo key={todoItem.key} keyid={todoItem.key}
+            title={todoItem.title} finished={todoItem.finished} editing={todoItem.editing} 
+            modifyFunction={this.props.modifyFunction}/>);
     }
 
     render() {

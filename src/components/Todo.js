@@ -4,15 +4,19 @@ class Todo extends React.Component {
 
     render() {
         var liClass = ""
-        var inputTag = ""
         if (this.props.editing)
             liClass += "editing ";
+
+        // The Check Box
+        var inputTag = ""
         if (this.props.finished) {
             liClass += "completed ";
-            inputTag = (<input className="toggle" type="checkbox" defaultChecked />);
+            inputTag = (<input className="toggle" type="checkbox" defaultChecked
+                keyid={this.props.keyid} onClick={(e) => this.props.modifyFunction(this.props.keyid, e)} />);
         }
         else {
-            inputTag = (<input className="toggle" type="checkbox" />);
+            inputTag = (<input className="toggle" type="checkbox" keyid={this.props.keyid}
+                onClick={(e) => this.props.modifyFunction(this.props.keyid, e)} />);
         }
 
         return (
