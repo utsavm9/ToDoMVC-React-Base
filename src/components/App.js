@@ -119,7 +119,7 @@ class App extends Component {
                         filterFunc={this.handleFilterChange} activeFilter={this.state.activeFilter}
                         removeFunc={this.removeCompleted} />
                 </section>
-                <Blah />
+                {/* <Blah /> */}
             </div>
         );
     }
