@@ -41,6 +41,7 @@ class App extends Component {
             numUnfinished: (this.state.numUnfinished + 1),
             todos: previousTodos,
         });
+        console.log(this.state)
     }
 
     modifyToDo(keynum, event) {
