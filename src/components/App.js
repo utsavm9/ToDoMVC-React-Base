@@ -6,17 +6,17 @@ import Main from './Main'
 
 import 'todomvc-common/base.css'
 import 'todomvc-app-css/index.css'
-
-//Will this change make it?
+import { connect } from 'react-redux';
+import { ADD_TODO } from '../actions/todoActions.js';
 
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            numTodos: 0,
-            numUnfinished: 0,
-            activeFilter: 'All',
             todos: [],
+            numUnfinished: 0,
+            numTodos: 0,
+            activeFilter: 'All',
         };
 
         this.addToDo = this.addToDo.bind(this);
@@ -26,22 +26,11 @@ class App extends Component {
         this.removeCompleted = this.removeCompleted.bind(this);
     }
 
-    addToDo(todo) {
-        if (todo === '')
-            return;
-        var previousTodos = this.state.todos;
-        previousTodos.push({
-            key: this.state.numTodos,
-            title: todo,
-            finished: false,
-            editing: false
-        });
-        this.setState({
-            numTodos: (this.state.numTodos + 1),
-            numUnfinished: (this.state.numUnfinished + 1),
-            todos: previousTodos,
-        });
-        console.log(this.state)
+    addToDo(todo) { 
+        this.props.dispatch({
+            type: ADD_TODO,
+            payload: todo
+        })
     }
 
     modifyToDo(keynum, event) {
@@ -110,13 +99,13 @@ class App extends Component {
         return (
             <div>
                 <section className="todoapp">
-                    <Header saveToDo={this.addToDo} />
+                    <Header/>
 
-                    <Main todos={this.state.todos} modifyFunction={this.modifyToDo} activeFilter={this.state.activeFilter}
+                    <Main todos={this.props.todos} modifyFunction={this.modifyToDo} activeFilter={this.state.activeFilter}
                         removeKeyID={this.removeKeyID} />
 
-                    <Footer numOfFinished={this.state.numTodos - this.state.numUnfinished}
-                        numOfUnfinished={this.state.numUnfinished}
+                    <Footer numOfFinished={this.props.numTodos - this.props.numUnfinished}
+                        numOfUnfinished={this.props.numUnfinished}
                         filterFunc={this.handleFilterChange} activeFilter={this.state.activeFilter}
                         removeFunc={this.removeCompleted} />
                 </section>
@@ -126,4 +115,13 @@ class App extends Component {
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    console.log(state)
+    return {
+        todos: state.todosList.todos,
+        numTodos: state.todosList.numTodos,
+        numUnfinished: state.todosList.numUnfinished,
+    }
+}
+
+export default connect(mapStateToProps)(App)
