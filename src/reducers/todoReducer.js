@@ -35,6 +35,11 @@ const todoReducer = (stateTodo = initialState, action) => {
             }
 
 
+        case TOGGLE_FINISH:
+            
+            let targetTodo = stateTodo.todos.find(element => element.key === action.payload)
+            targetTodo.finished = !targetTodo.finished
+
 
 
         default: 
